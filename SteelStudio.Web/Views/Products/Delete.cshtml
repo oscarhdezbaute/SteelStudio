@@ -1,0 +1,108 @@
+﻿@model SteelStudio.Common.Models.Product
+
+@{
+    ViewBag.Title = "Eliminar - " + Model.Code;
+    Layout = "~/Views/Shared/_LayoutDesktop.cshtml";
+}
+
+<div class="breadcrumbs" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="icon-home"></i>
+            @Html.ActionLink("Escritorio", "Index", "Desktop")
+        </li>
+        <li>
+            <i class="icon-tasks"></i>
+            @Html.ActionLink("Productos", "Index", "Products")
+        </li>
+        <li class="active">Eliminar</li>
+    </ul><!--.breadcrumb-->
+</div>
+
+<div class="page-content">
+    <div class="row-fluid">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+            <div id="user-profile-2" class="user-profile row-fluid">
+                <div class="tabbable">
+                    <ul class="nav nav-tabs padding-18">
+                        <li class="active">
+                            <a data-toggle="tab" href="#home">
+                                <i class="blue icon-tasks bigger-120"></i>
+                                @(Model.Code + " - " + Model.Category.Description)
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="tab-content no-border padding-12">
+                        <div id="home" class="tab-pane in active">
+                            <div class="row-fluid">
+                                <div class="span8">
+                                    <h4 class="blue">
+                                        <span>@Model.Code - @Model.Category.Description</span>
+                                    </h4>
+                                    <hr />
+                                    <div class="profile-user-info">
+                                        <div class="profile-info-row">
+                                            <div class="profile-info-name"> Código </div>
+                                            <div class="profile-info-value">
+                                                <span>@Model.Code</span>
+                                            </div>
+                                        </div>
+                                        @*<div class="hr hr-8 dotted"></div>*@
+                                        <div class="profile-info-row">
+                                            <div class="profile-info-name"> Categoria </div>
+                                            <div class="profile-info-value">
+                                                <span>@Model.Category.Description</span>
+                                            </div>
+                                        </div>
+                                        @*<div class="hr hr-8 dotted"></div>*@
+                                        <div class="profile-info-row">
+                                            <div class="profile-info-name"> Observaciones </div>
+                                            @if (String.IsNullOrEmpty(Model.Notes))
+                                            {
+                                                <div class="profile-info-value">
+                                                    <span>
+                                                        No hay observaciones
+                                                    </span>
+                                                </div>
+                                            }
+                                            else
+                                            {
+                                                <div class="profile-info-value">
+                                                    <span>
+                                                        @Model.Notes
+                                                    </span>
+                                                </div>
+                                            }
+                                        </div>
+                                        @*<div class="hr hr-8 dotted"></div>*@
+                                        <div class="profile-info-row">
+                                            <div class="profile-info-name"> Creado por </div>
+                                            <div class="profile-info-value">
+                                                <span>@Model.UserName</span>
+                                            </div>
+                                        </div>
+                                        @*<div class="hr hr-8 dotted"></div>*@
+                                    </div>
+                                    <hr />
+                                    <input type="submit" value="Eliminar" class="btn btn-danger" onclick="return confirm('¿Desea eliminar el producto con todos sus elementos relacionados?');"/>
+                                    &nbsp;
+                                    @Html.ActionLink("Atrás", "Index", new { }, new { @class = "btn btn-success" })
+                                </div>
+                                <div class="span4">
+                                    <img src="@Url.Content(Model.ImageFullPath)" style="width:300px;height:300px;max-width:100%;height:auto" class="img-thumbnail" title="@(Model.Code + " - " + Model.Category.Description)" />
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+
+
+

@@ -1,0 +1,170 @@
+﻿<div class="sidebar" id="sidebar">
+
+    <div class="sidebar-shortcuts" id="sidebar-shortcuts">
+        <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+            <a class="btn1 btn1-small btn1-success" href="@Url.Content("~/Desktop")" title="">
+                <i class="icon-credit-card"></i>
+            </a>           
+            <a class="btn1 btn1-small btn1-warning" href="@Url.Content("~/Desktop")" title="">
+                <i class="icon-envelope"></i>
+            </a>           
+            <a class="btn1 btn1-small btn1-danger" href="@Url.Content("~/Desktop")" title="">
+                <i class="icon-globe"></i>
+            </a>            
+            <a class="btn1 btn1-small btn1-info" href="@Url.Content("~/Desktop")" title="Acerca De...">
+                <i class="icon-info-sign"></i>
+            </a>
+        </div>
+        <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+            <span class="btn1 btn1-success"></span>            
+                <span class="btn1 btn1-info"></span>           
+                <span class="btn1 btn1-warning"></span>            
+            <span class="btn1 btn1-danger"></span>
+        </div>
+    </div>
+
+    <ul class="nav nav-list">
+        @if (Request.Url.AbsolutePath.Contains("/Desktop"))
+        {
+            <li class="active">
+                <a href="~/Desktop" title="Ambiente de trabajo">
+                    <i class="icon-home"></i>
+                    <span class="menu-text"> Escritorio </span>
+                </a>
+            </li>
+        }
+        else
+        {
+            <li>
+                <a href="~/Desktop" title="Ambiente de trabajo">
+                    <i class="icon-home"></i>
+                    <span class="menu-text"> Escritorio </span>
+                </a>
+            </li>
+        }
+        @if (User.IsInRole("administrador"))
+        {
+            if (Request.Url.AbsolutePath.Contains("/Categories"))
+            {
+                <li class="active">
+                    <a href="~/Categories" title="Gestión de categorias">
+                        <i class="icon-trello"></i>
+                        <span class="menu-text"> Categorias </span>
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="~/Categories" title="Gestión de categorias">
+                        <i class="icon-trello"></i>
+                        <span class="menu-text"> Categorias </span>
+                    </a>
+                </li>
+
+            }
+        }
+        @if (User.IsInRole("administrador"))
+        {
+            if (Request.Url.AbsolutePath.Contains("/Material"))
+            {
+                <li class="active">
+                    <a href="~/Desktop" title="Gestión de materiales">
+                        <i class="icon-building"></i>
+                        <span class="menu-text"> Materiales </span>
+                    </a>
+                </li>
+            }
+            else
+            {
+                <li>
+                    <a href="~/Desktop" title="Gestión de materiales">
+                        <i class="icon-building"></i>
+                        <span class="menu-text"> Materiales </span>
+                    </a>
+                </li>
+            }
+        }
+        @if (Request.Url.AbsolutePath.Contains("/Products"))
+        {
+            <li class="active">
+                <a href="~/Products" title="Gestión de productos">
+                    <i class="icon-tasks"></i>
+                    <span class="menu-text"> Productos </span>
+                </a>
+            </li>
+        }
+        else
+        {
+            <li>
+                <a href="~/Products" title="Gestión de productos">
+                    <i class="icon-tasks"></i>
+                    <span class="menu-text"> Productos </span>
+                </a>
+            </li>
+
+        }
+        @if (Request.Url.AbsolutePath.Contains("/Manage"))
+        {
+            <li class="active">
+                <a href="~/Manage" title="Gestión de usuarios">
+                    <i class="icon-user"></i>
+                    <span class="menu-text"> Usuarios </span>
+                </a>
+            </li>
+        }
+        else
+        {
+            <li>
+                <a href="~/Manage" title="Gestión de usuarios">
+                    <i class="icon-user"></i>
+                    <span class="menu-text"> Usuarios </span>
+                </a>
+            </li>
+
+        }
+        @*<li>
+            <a href="gallery.html">
+                <i class="icon-picture"></i>
+                <span class="menu-text"> Estadísticas </span>
+            </a>
+        </li>*@
+
+
+
+        @*<li>
+            <a href="index.html" class="dropdown-toggle">
+                <i class="icon-tag"></i>
+                <span class="menu-text"> Informes <span class="badge badge-primary ">4</span></span>
+
+                <b class="arrow icon-angle-down"></b>
+            </a>
+
+            <ul class="submenu">
+                <li>
+                    <a href="profile.html">
+                        <i class="icon-double-angle-right"></i>
+                        Eficientes  <span class="badge badge-success ">2</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="pricing.html">
+                        <i class="icon-double-angle-right"></i>
+                        Indices <span class="badge badge-warning ">6</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="login.html">
+                        <i class="icon-double-angle-right"></i>
+                        Reportes <span class="badge badge-important ">6</span>
+                    </a>
+                </li>
+            </ul>
+        </li>*@
+    </ul>
+    <div class="sidebar-collapse" id="sidebar-collapse">
+        <i class="icon-double-angle-left"></i>
+    </div>
+</div>

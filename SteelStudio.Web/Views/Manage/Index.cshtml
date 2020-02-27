@@ -1,0 +1,148 @@
+﻿@model IEnumerable<SteelStudio.Web.Models.Users_in_Role_ViewModel>
+@{
+    ViewBag.Title = "Usuarios";
+    Layout = "~/Views/Shared/_LayoutDesktop.cshtml";
+}
+
+<div class="breadcrumbs" id="breadcrumbs">
+    <ul class="breadcrumb">
+        <li>
+            <i class="icon-home"></i>
+            @Html.ActionLink("Escritorio", "Index", "Desktop")
+        </li>
+        <li class="active">Usuarios</li>
+    </ul><!--.breadcrumb-->
+</div>
+
+@*<h2>@ViewBag.Title.</h2>*@
+
+<div class="page-content">
+    <p class="text-success">@ViewBag.StatusMessage</p>
+    <h4>Gestión de usuarios</h4>
+    <hr />
+    @using (Html.BeginForm("Index", "Manage", FormMethod.Post, new { enctype = "multipart/form-data" }))
+    {
+        @Html.AntiForgeryToken()
+        <dl class="dl-horizontal">
+            <dt>Contraseña:</dt>
+            <dd>
+                [
+                @Html.ActionLink("Cambia tu contraseña", "ChangePassword")
+                ]
+            </dd>
+            @if (User.IsInRole("administrador"))
+            {
+                <dt>Usuarios:</dt>
+                <dd>
+                    [
+                    @Html.ActionLink("Crear nuevo usuario", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })
+                    ]
+                </dd>
+            }
+        </dl>
+        if (User.IsInRole("administrador"))
+        {
+            <hr />
+            <div class="row-fluid">
+                <div class="table-header">
+                    <button class="btn btn-small btn-primary" type="submit" name="Delete" formaction="@Url.Action("Delete")" formmethod="post" onclick="return confirm('¿Desea eliminar los elementos seleccionados?');">  Eliminar seleccionados </button>
+                </div>
+                <div class="space">
+                    <div class="pull-right tableTools-container"></div>
+                </div>
+                <table id="dynamic-table" class="table table-striped table-bordered">
+                    <thead>
+                        <tr>
+                            <th @*class="center"*@>
+                                @*<label class="pos-rel">
+                                        <input type="checkbox" class="ace" />
+                                        <span class="lbl"></span>
+                                    </label>*@
+                            </th>
+                            <th>
+                                Usuario
+                            </th>
+                            <th>
+                                Privilegios
+                            </th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var user in Model)
+                        {
+                            <tr>
+                                <td class="center">
+                                    <label class="pos-rel">
+                                        <input type="checkbox" class="ace" name="Id[]" value="@user.UserId" />
+                                        <span class="lbl"></span>
+                                    </label>
+                                </td>
+                                <td class="">
+                                    @Html.DisplayFor(modelItem => user.Username)
+                                </td>
+                                @if (user.Role == "administrador")
+                                {
+                                    <td class="hidden-480">
+                                        <span class="label label-success">administrador</span>
+                                    </td>
+                                }
+                                else
+                                {
+                                    if (user.Role == "diseñador")
+                                    {
+                                        <td class="hidden-480">
+                                            <span class="label label-warning">diseñador</span>
+                                        </td>
+                                    }
+                                }
+                                <td>
+                                    @if (User.Identity.Name != user.Username)
+                                    {
+                                        <i> | </i>
+                                        @Html.ActionLink("Eliminar", "DeleteOne", new { id = user.UserId })
+                                        <i> | </i>
+                                    }
+                                </td>
+                            </tr>
+                        }
+
+                    </tbody>
+                </table>
+            </div>
+        }
+    }
+</div>
+@section scripts {
+    <script type="text/javascript">
+        $(function () {
+            var oTable1 = $('#dynamic-table').dataTable({
+                "aoColumns": [
+                    { "bSortable": false }, null, null, { "bSortable": false }
+                ]
+            });
+            
+            //And for the first simple table, which doesn't have TableTools or dataTables
+            //select/deselect all rows according to table header checkbox
+            var active_class = 'active';
+            $('#dynamic-table > thead > tr > th input[type=checkbox]').eq(0).on('click', function () {
+                var th_checked = this.checked;//checkbox inside "TH" table header
+
+                $(this).closest('table').find('tbody > tr').each(function () {
+                    var row = this;
+                    if (th_checked) $(row).addClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', true);
+                    else $(row).removeClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', false);
+                });
+            });
+
+            //select/deselect a row when the checkbox is checked/unchecked
+            $('#dynamic-table').on('click', 'td input[type=checkbox]', function () {
+                var $row = $(this).closest('tr');
+                if ($row.is('.detail-row ')) return;
+                if (this.checked) $row.addClass(active_class);
+                else $row.removeClass(active_class);
+            });
+        });
+
+    </script>
+}

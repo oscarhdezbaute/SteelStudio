@@ -1,0 +1,71 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    
+    @Styles.Render("~/Content/css")
+    @Styles.Render("~/Content/Ace/css")
+    @Styles.Render("~/Content/Date/css")
+    @Styles.Render("~/Content/Font/css")
+    @Styles.Render("~/Content/dataTables/css")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @Html.ActionLink("Steel-Studio v1.0", "Index", "Desktop", new { area = "" }, new { @class = "navbar-brand" })
+            </div>
+            <div">
+                @Html.Partial("_LoginPartial")
+        </div>
+    </div>
+    </div>
+    <div class="main-container container-fluid">
+        <a class="menu-toggler" id="menu-toggler" href="#">
+            <span class="menu-text"></span>
+        </a>
+        @Html.Action("_MenuPartialView", "Desktop")
+        <div class="main-content">
+            @RenderBody()
+        </div>
+    </div>
+
+    @Scripts.Render("~/bundles/modernizr")
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/ace")
+    @Scripts.Render("~/bundles/dataTables")
+
+    @*<script src="@Url.Content("~/Content/js/jquery-ui-1.10.3.custom.min.js")"></script>
+        <script src="@Url.Content("~/Content/js/jquery.ui.touch-punch.min.js")"></script>
+        <script src="@Url.Content("~/Content/js/chosen.jquery.min.js")"></script>*@
+
+
+    @*<script src="@Url.Content("~/Scripts/jquery-3.3.1.min.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.ui.widget.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.iframe-transport.js")"></script>
+    <script src="@Url.Content("~/Scripts/jquery.fileupload.js")"></script>*@
+
+
+    @*<script src="@Url.Content("~/Scripts/jquery.dataTables.min.js")"></script>
+        <script src="@Url.Content("~/Scripts/dataTables.bootstrap.min.js")"></script>*@
+
+
+    @*<script src="@Url.Content("~/Scripts/jquery.dataTables.min.js")"></script>
+        <script src="@Url.Content("~/Scripts/jquery.dataTables.bootstrap.js")"></script>*@
+
+    @*<script src="@Url.Content("~/Content/assets/js/ace-elements.min.js")"></script>
+        <script src="@Url.Content("~/Content/assets/js/ace.min.js")"></script>*@
+
+    @RenderSection("scripts", required: false)
+
+</body>
+</html>
